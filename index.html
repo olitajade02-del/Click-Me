@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Secret Confession 💌</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff6a88, #ff99ac);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .card {
+        background: white;
+        width: 360px;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        text-align: center;
+        z-index: 1;
+    }
+
+    h2 {
+        color: #ff4d6d;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    button {
+        margin-top: 12px;
+        width: 100%;
+        padding: 10px;
+        background: #ff4d6d;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .choice-btns {
+        display: none;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .yes {
+        background: #4CAF50;
+    }
+
+    .no {
+        background: #999;
+    }
+
+    .result {
+        display: none;
+        margin-top: 20px;
+        background: #fff0f3;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .name {
+        font-weight: bold;
+        color: #ff4d6d;
+        font-size: 18px;
+    }
+
+    .heart {
+        position: absolute;
+        animation: float 6s linear infinite;
+        font-size: 20px;
+    }
+
+    @keyframes float {
+        from { transform: translateY(100vh); opacity: 1; }
+        to { transform: translateY(-10vh); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>💌Letter for you</h2>
+
+    <input type="text" id="crush" placeholder="Type your name here 💖">
+
+    <button onclick="sendConfession()">Submit</button>
+
+    <div class="result" id="output">
+        <p class="name" id="showName"></p>
+        <p id="showMsg"></p>
+
+        <!-- YES / NO -->
+        <div class="choice-btns" id="choices">
+            <button class="yes" onclick="answerYes()">YES 💖</button>
+            <button class="no" onclick="answerNo()">NO 💔</button>
+        </div>
+
+        <p id="reply"></p>
+        <p>— from admire</p>
+    </div>
+</div>
+
+<script>
+function sendConfession() {
+    const crush = document.getElementById("crush").value.trim();
+
+    if (crush === "") {
+        alert("Please enter your name first 😊");
+        return;
+    }
+
+    document.getElementById("showName").textContent = "Hi " + crush + ",";
+    document.getElementById("showMsg").textContent =
+        "Crush tika, pero karon ra ko ni-confess 😅. Walay pressure ha. Tinuod ni tanan… I like you 💖";
+
+    document.getElementById("output").style.display = "block";
+    document.getElementById("choices").style.display = "flex";
+    document.getElementById("reply").textContent = "";
+}
+
+function answerYes() {
+    document.getElementById("reply").textContent =
+        "YAY! Thank you for giving this a chance 🥰💖";
+    document.getElementById("choices").style.display = "none";
+}
+
+function answerNo() {
+    document.getElementById("reply").textContent =
+        "It’s okay 😊 Thank you for being honest. I respect your answer 💙";
+    document.getElementById("choices").style.display = "none";
+}
+
+// floating hearts
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 600);
+</script>
+
+</body>
+</html>u
