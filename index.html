@@ -2,117 +2,261 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Secret Confession 💌</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Message For You 💌</title>
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #ff6a88, #ff99ac);
-        height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        margin: 0;
+        position: relative;
+    }
+
+    .background-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+
+    .shape {
+        position: absolute;
+        opacity: 0.1;
+        border-radius: 50%;
+    }
+
+    .shape1 { width: 200px; height: 200px; background: white; top: 10%; left: 10%; animation: float 8s ease-in-out infinite; }
+    .shape2 { width: 150px; height: 150px; background: white; bottom: 15%; right: 10%; animation: float 6s ease-in-out infinite reverse; }
+    .shape3 { width: 100px; height: 100px; background: white; top: 50%; left: 5%; animation: float 7s ease-in-out infinite; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(30px); }
     }
 
     .card {
         background: white;
-        width: 360px;
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        width: 380px;
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         text-align: center;
-        z-index: 1;
+        z-index: 10;
+        animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     h2 {
-        color: #ff4d6d;
+        color: #667eea;
+        font-size: 24px;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .subtitle {
+        color: #999;
+        font-size: 13px;
+        margin-bottom: 25px;
+        letter-spacing: 0.5px;
     }
 
     input {
         width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
+        padding: 12px 15px;
+        margin-top: 15px;
+        border-radius: 12px;
+        border: 2px solid #e0e0e0;
+        font-size: 15px;
+        transition: all 0.3s ease;
         outline: none;
     }
 
+    input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
     button {
-        margin-top: 12px;
+        margin-top: 18px;
         width: 100%;
-        padding: 10px;
-        background: #ff4d6d;
+        padding: 12px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
         border: none;
-        border-radius: 10px;
+        border-radius: 12px;
         color: white;
         font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+        transform: translateY(0);
     }
 
     .choice-btns {
         display: none;
         gap: 10px;
-        margin-top: 15px;
+        margin-top: 20px;
+    }
+
+    .choice-btns button {
+        flex: 1;
+        padding: 11px;
+        font-size: 15px;
     }
 
     .yes {
-        background: #4CAF50;
+        background: linear-gradient(135deg, #4CAF50, #45a049);
+    }
+
+    .yes:hover {
+        box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
     }
 
     .no {
-        background: #999;
+        background: linear-gradient(135deg, #f44336, #da190b);
+    }
+
+    .no:hover {
+        box-shadow: 0 10px 25px rgba(244, 67, 54, 0.4);
     }
 
     .result {
         display: none;
-        margin-top: 20px;
-        background: #fff0f3;
-        padding: 15px;
+        margin-top: 25px;
+        background: linear-gradient(135deg, #fff5f7, #f5f0ff);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #f0e6ff;
+    }
+
+    .message-box {
+        background: white;
+        padding: 20px;
         border-radius: 12px;
+        margin: 15px 0;
+        border-left: 4px solid #667eea;
     }
 
     .name {
-        font-weight: bold;
-        color: #ff4d6d;
+        font-weight: 700;
+        color: #667eea;
         font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .msg-text {
+        color: #555;
+        line-height: 1.6;
+        font-size: 15px;
+    }
+
+    .reply {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        background: white;
+        border-radius: 12px;
+        color: #667eea;
+        font-weight: 600;
+        animation: popIn 0.4s ease-out;
+    }
+
+    @keyframes popIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .signature {
+        color: #999;
+        font-size: 13px;
+        margin-top: 15px;
+        font-style: italic;
     }
 
     .heart {
-        position: absolute;
-        animation: float 6s linear infinite;
-        font-size: 20px;
+        position: fixed;
+        pointer-events: none;
+        font-size: 24px;
+        animation: floatUp 4s ease-in forwards;
     }
 
-    @keyframes float {
-        from { transform: translateY(100vh); opacity: 1; }
-        to { transform: translateY(-10vh); opacity: 0; }
+    @keyframes floatUp {
+        0% {
+            opacity: 1;
+            transform: translateY(0) rotate(0deg);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-100vh) rotate(360deg);
+        }
     }
 </style>
 </head>
 
 <body>
 
+<div class="background-shapes">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+</div>
+
 <div class="card">
-    <h2>💌Letter for you</h2>
+    <h2>💌 Something Special</h2>
+    <p class="subtitle">A message just for you</p>
 
-    <input type="text" id="crush" placeholder="Type your name here 💖">
-
-    <button onclick="sendConfession()">Submit</button>
+    <input type="text" id="crush" placeholder="Enter your name here ✨">
+    <button onclick="sendConfession()">Open Message</button>
 
     <div class="result" id="output">
-        <p class="name" id="showName"></p>
-        <p id="showMsg"></p>
-
-        <!-- YES / NO -->
-        <div class="choice-btns" id="choices">
-            <button class="yes" onclick="answerYes()">YES 💖</button>
-            <button class="no" onclick="answerNo()">NO 💔</button>
+        <div class="message-box">
+            <p class="name" id="showName"></p>
+            <p class="msg-text" id="showMsg"></p>
         </div>
 
-        <p id="reply"></p>
-        <p>— from admire</p>
+        <div class="choice-btns" id="choices">
+            <button class="yes" onclick="answerYes()">YES 💖</button>
+            <button class="no" onclick="answerNo()">Not Sure 💙</button>
+        </div>
+
+        <div class="reply" id="reply"></div>
+        <p class="signature">— with genuine care</p>
     </div>
 </div>
 
@@ -121,41 +265,64 @@ function sendConfession() {
     const crush = document.getElementById("crush").value.trim();
 
     if (crush === "") {
-        alert("Please enter your name first 😊");
+        alert("Don't be shy! Tell me your name 😊");
         return;
     }
 
-    document.getElementById("showName").textContent = "Hi " + crush + ",";
+    document.getElementById("showName").textContent = `Hi ${crush},`;
     document.getElementById("showMsg").textContent =
-        "Crush tika, pero karon ra ko ni-confess 😅. Walay pressure ha. Tinuod ni tanan… I like you 💖";
+        `I've been thinking about this for a while now, and I think it's time to be honest with you. There's something special about you that I can't quite put into words. Your smile, your laugh, the way you think about things... it all matters to me. I genuinely like you, and I wanted you to know that. No pressure at all—just wanted to be real with you. 💖`;
 
     document.getElementById("output").style.display = "block";
     document.getElementById("choices").style.display = "flex";
+    document.getElementById("reply").style.display = "none";
     document.getElementById("reply").textContent = "";
+
+    // Trigger some hearts
+    createHearts(5);
 }
 
 function answerYes() {
     document.getElementById("reply").textContent =
-        "YAY! Thank you for giving this a chance 🥰💖";
+        "🎉 That makes me so happy! Thank you for giving this a chance. Let's see where this goes. 💖";
+    document.getElementById("reply").style.display = "block";
     document.getElementById("choices").style.display = "none";
+    createHearts(8);
 }
 
 function answerNo() {
     document.getElementById("reply").textContent =
-        "It’s okay 😊 Thank you for being honest. I respect your answer 💙";
+        "I completely understand, and I really appreciate your honesty. You're amazing, and I'm grateful you took the time to listen. 💙";
+    document.getElementById("reply").style.display = "block";
     document.getElementById("choices").style.display = "none";
 }
 
-// floating hearts
+function createHearts(count) {
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.textContent = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.bottom = "-30px";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }, i * 100);
+    }
+}
+
+// Floating hearts on load
 setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.textContent = "💖";
     heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-30px";
+    heart.style.opacity = "0.6";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 600);
+    setTimeout(() => heart.remove(), 4000);
+}, 800);
 </script>
 
 </body>
-</html>u
+</html>
